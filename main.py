@@ -7,12 +7,12 @@ from matplotlib import pyplot as plt
 letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W",
            "X", "Y"]
 # Toggle showing intermediary images
-showImages = 0
+showImages = 1
 # Toggle between adding data to the dataset and "guessing" the letter
 saveImage = 0
 saveLetter = "A"
 # Name of the image.jpg from the refImages folder
-fileName = "test"
+fileName = "P"
 
 
 def calcDiff(a, b):
@@ -28,7 +28,6 @@ image = cv2.resize(image, (500, 500))
 cv2.imwrite("canny.jpg", cv2.Canny(image, 100, 200))
 cannyImg = cv2.imread("canny.jpg")
 th, cannyImg = cv2.threshold(cannyImg, 220, 255, cv2.THRESH_BINARY_INV)
-
 
 height = cannyImg.shape[0]
 width = cannyImg.shape[1]
@@ -120,7 +119,7 @@ else:
                 if diff < minDiff:
                     minDiff = diff
                     rezLetter = l
-
+cv2.putText(image, rezLetter, (10, 500), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 if showImages: cv2.imshow("Original Image", image)
 if showImages: cv2.imshow("Centroid Image", rez)
 print rezLetter
